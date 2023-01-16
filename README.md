@@ -15,6 +15,13 @@ A cross-platform Discord music bot with a clean interface, and that is easy to s
 
 [![Setup](http://i.imgur.com/VvXYp5j.png)](https://jmusicbot.com/setup)
 
+## Run in Docker container
+1. Clone the repo and cd into it
+2. Run `docker build -t jmusicbot .`
+3. Fill in your discord token and owner id into `docker-compose.yml`
+4. Run `docker-compose up`
+5. You are all set!
+
 ## Features
   * Easy to run (just make sure Java is installed, and run!)
   * Fast loading of songs
