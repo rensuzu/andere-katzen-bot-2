@@ -20,6 +20,9 @@ import com.jagrosh.jmusicbot.utils.FormatUtil;
 import com.jagrosh.jmusicbot.utils.OtherUtil;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.typesafe.config.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -96,13 +99,41 @@ public class BotConfig
             // we may need to write a new config file
             boolean write = false;
 
+            // check if we are running in docker
+            boolean isDocker = false;
+            try {
+                Scanner text = new Scanner("docker");
+                Scanner cgroupFile = new Scanner(new FileInputStream("/proc/self/cgroup"));
+                String docker = text.next();
+                text.close();
+    
+                while (cgroupFile.hasNextLine()) {
+                    String line = cgroupFile.nextLine();
+                    if (line.indexOf(docker) != -1) {
+                        isDocker = true;
+                        break;
+                    }
+                }
+            } catch (FileNotFoundException e) {
+                // do nothing
+            }
+            
+
             // validate bot token
             if(token==null || token.isEmpty() || token.equalsIgnoreCase("BOT_TOKEN_HERE"))
             {
-                token = prompt.prompt("Please provide a bot token."
-                        + "\nInstructions for obtaining a token can be found here:"
+                // if we are running in docker, get the token from the environment variable
+                if(isDocker) {
+                    token = System.getenv("BOT_TOKEN");
+                }
+                // otherwise, prompt the user for a token
+                else {
+                    token = prompt.prompt("Please provide a bot token."
+                    + "\nInstructions for obtaining a token can be found here:"
                         + "\nhttps://github.com/jagrosh/MusicBot/wiki/Getting-a-Bot-Token."
                         + "\nBot Token: ");
+                }
+
                 if(token==null)
                 {
                     prompt.alert(Prompt.Level.WARNING, CONTEXT, "No token provided! Exiting.\n\nConfig Location: " + path.toAbsolutePath().toString());
@@ -117,17 +148,24 @@ public class BotConfig
             // validate bot owner
             if(owner<=0)
             {
-                try
-                {
-                    owner = Long.parseLong(prompt.prompt("Owner ID was missing, or the provided owner ID is not valid."
-                        + "\nPlease provide the User ID of the bot's owner."
-                        + "\nInstructions for obtaining your User ID can be found here:"
-                        + "\nhttps://github.com/jagrosh/MusicBot/wiki/Finding-Your-User-ID"
-                        + "\nOwner User ID: "));
+                // if we are running in docker, get the owner id from the environment variable
+                if(isDocker) {
+                    owner = Long.parseLong(System.getenv("BOT_OWNER"));
                 }
-                catch(NumberFormatException | NullPointerException ex)
-                {
-                    owner = 0;
+                // otherwise, prompt the user for an owner id
+                else {
+                    try
+                    {
+                        owner = Long.parseLong(prompt.prompt("Owner ID was missing, or the provided owner ID is not valid."
+                            + "\nPlease provide the User ID of the bot's owner."
+                            + "\nInstructions for obtaining your User ID can be found here:"
+                            + "\nhttps://github.com/jagrosh/MusicBot/wiki/Finding-Your-User-ID"
+                            + "\nOwner User ID: "));
+                    }
+                    catch(NumberFormatException | NullPointerException ex)
+                    {
+                        owner = 0;
+                    }
                 }
                 if(owner<=0)
                 {

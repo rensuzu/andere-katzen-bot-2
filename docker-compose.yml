@@ -1,0 +1,15 @@
+version: "3.9"
+
+services:
+
+  jmusicbot:
+
+    container_name: jmusicbot
+
+    image: jmusicbot:latest
+
+    restart: always
+
+    environment:
+      BOT_TOKEN: "BOT_TOKEN_HERE"
+      BOT_OWNER: "123456789"
