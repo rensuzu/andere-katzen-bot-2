@@ -15,12 +15,57 @@ A cross-platform Discord music bot with a clean interface, and that is easy to s
 
 [![Setup](http://i.imgur.com/VvXYp5j.png)](https://jmusicbot.com/setup)
 
-## Run in Docker container
-1. Clone the repo and cd into it
-2. Run `docker build -t jmusicbot .`
-3. Fill in your discord token and owner id into `docker-compose.yml`
-4. Run `docker-compose up`
-5. You are all set!
+# Setup: Running in Docker container
+* Method 1 (Easiest):
+```bash
+# Clone the repo
+git clone --branch develop https://github.com/LynBean/Jagrosh-MusicBot
+
+# Change working directory into this repo
+cd Jagrosh-MusicBot
+
+# Build docker image
+docker build -t jmusicbot .
+
+# Fill in your discord token and owner id into BOT_TOKEN and BOT_OWNER fields respectively inside docker-compose.yml file
+
+# Create docker container and run
+docker-compose up
+```
+
+* Method 2 (Alternate than using docker-compose)
+```bash
+# Clone the repo
+git clone --branch develop https://github.com/LynBean/Jagrosh-MusicBot
+
+# Change working directory into this repo
+cd Jagrosh-MusicBot
+
+# Build docker image
+docker build -t jmusicbot .
+
+# Create docker container and run
+# Insert your own bot token and owner id into BOT_TOKEN and BOT_OWNER respectively without including the <> symbols
+docker run -d --name mymusicbot -e BOT_TOKEN=<TOKEN> -e BOT_OWNER=<ID> jmusicbot
+```
+
+## Editing config.txt inside docker container
+```bash
+# When the container is RUNNING
+# Get the container id
+docker ps
+
+# Get a bash shell inside the container
+docker exec -it <CONTAINER_ID> /bin/bash
+
+# After get into the shell
+# Use nano editor to edit
+nano /JMusicBot/config.txt
+
+# If you are more familiar with vim editor,
+# You can install it by the following command
+# apk add vim
+```
 
 ## Features
   * Easy to run (just make sure Java is installed, and run!)
