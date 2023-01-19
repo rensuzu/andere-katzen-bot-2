@@ -11,7 +11,7 @@ RUN mvn test
 RUN mvn install
 
 # Build final image
-FROM alpine:latest
+FROM alpine:3.17.1
 COPY --from=builder /JMusicBot/target/JMusicBot-Snapshot-All.jar /JMusicBot/JMusicBot.jar
 RUN apk update
 RUN apk add --no-cache bash
