@@ -10,6 +10,12 @@ services:
 
     restart: always
 
+    volumes:
+      - ./JMusicBot:/JMusicBot/data
+
     environment:
-      BOT_TOKEN: "BOT_TOKEN_HERE"
-      BOT_OWNER: "123456789"
+      # https://github.com/jagrosh/MusicBot/wiki/Getting-a-Bot-Token
+      CONFIG_FORCE_token: BOT_TOKEN_HERE
+
+      # https://github.com/jagrosh/MusicBot/wiki/Finding-Your-User-ID
+      CONFIG_FORCE_owner: 0
