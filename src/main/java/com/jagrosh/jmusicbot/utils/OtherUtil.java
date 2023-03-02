@@ -222,13 +222,6 @@ public class OtherUtil
     public static Boolean isDockerContainer()
     {
         File dockerenv = new File("/.dockerenv");
-        if (dockerenv.exists() && dockerenv.isFile())
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return dockerenv.exists();
     }
 }
