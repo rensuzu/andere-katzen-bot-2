@@ -18,7 +18,9 @@ COPY --from=builder /JMusicBot/target/JMusicBot-Snapshot-All.jar /JMusicBot/JMus
 # Install useful packages
 RUN apk update
 RUN apk add --no-cache bash
+RUN apk add --no-cache nano
 RUN apk add --no-cache openjdk17
+RUN apk add --no-cache vim
 
 # https://github.com/AdoptOpenJDK/openjdk-docker/issues/75#issuecomment-469899609
 RUN apk add --no-cache fontconfig
