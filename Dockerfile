@@ -12,7 +12,7 @@ RUN mvn test
 RUN mvn install
 
 # Build final image using alpine (Distroless) for smaller image size
-FROM alpine:3.17.1
+FROM alpine:3.18.2
 COPY --from=builder /JMusicBot/target/JMusicBot-Snapshot-All.jar /JMusicBot/JMusicBot.jar
 
 # Install useful packages
