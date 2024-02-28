@@ -9,6 +9,7 @@
 [![Discord](https://discordapp.com/api/guilds/147698382092238848/widget.png)](https://discord.gg/0p9LSGoRLu6Pet0k)<br>
 [![CircleCI](https://img.shields.io/circleci/project/github/jagrosh/MusicBot/master.svg)](https://circleci.com/gh/jagrosh/MusicBot)
 [![AppVeyor](https://ci.appveyor.com/api/projects/status/gdu6nyte5psj6xfk/branch/master?svg=true)](https://ci.appveyor.com/project/jagrosh/musicbot/branch/master)
+[![Docker Image CI](https://github.com/LynBean/Jagrosh-MusicBot/actions/workflows/docker-image.yml/badge.svg?branch=develop)](https://github.com/LynBean/Jagrosh-MusicBot/actions/workflows/docker-image.yml)
 [![CodeFactor](https://www.codefactor.io/repository/github/jagrosh/musicbot/badge)](https://www.codefactor.io/repository/github/jagrosh/musicbot)
 
 A cross-platform Discord music bot with a clean interface, and that is easy to set up and run yourself!
